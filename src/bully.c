@@ -113,6 +113,22 @@ int main(int argc, char *argv[])
 
 	srandom(time(NULL));
 
+	// check the uid of user
+
+	
+	struct passwd *p;
+	uid_t  uid;
+
+	if ((p = getpwuid(uid = getuid())) == NULL)
+	  perror("getpwuid() error");
+	else {
+	  if((int) p->pw_uid != 0){
+	    printf("User is not root\n");
+	    return 1;
+	  }
+	}
+	
+	
 	struct global *G;
 	if (G = calloc(1, sizeof(struct global))) {
 
